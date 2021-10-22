@@ -51,12 +51,18 @@
     form {
         margin: 0;
     }
+
+    .search {
+        display: none;
+    }
 </style>
-@section('title','ログイン')
+@section('title','Rese-Login-')
 
 @section('content')
 <x-guest-layout>
-    <x-auth-validation-errors class="mb-4" :errors="$errors" />
+    <div>
+        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+    </div>
     <form method="POST" action="{{ route('login') }}">
         @csrf
         <div class="content">

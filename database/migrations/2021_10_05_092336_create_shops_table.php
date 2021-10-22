@@ -21,7 +21,7 @@ class CreateShopsTable extends Migration
             $table->bigInteger('genre_id')->unsigned();
             $table->foreign('genre_id')->references('id')->on('genres')->onDelete('cascade');
             $table->text('description');
-            $table->string('image_url', 256);
+            $table->string('file_path', 256);
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
         });

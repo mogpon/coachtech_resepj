@@ -32,7 +32,7 @@
     display: none;
   }
 </style>
-@section('title','Rese-Thanks-')
+@section('title','Rese-Done-')
 
 @section('content')
 <x-guest-layout>
@@ -41,10 +41,10 @@
     @csrf
     <div class="content">
       <div class="card">
-        <h1>会員登録ありがとうございます</h1>
+        <h1>ご予約ありがとうございます</h1>
         <div class="flex items-center justify-center mt-4">
           <x-button class="ml-4">
-            {{ __('ログインへ') }}
+            {{ __('戻る') }}
           </x-button>
         </div>
       </div>

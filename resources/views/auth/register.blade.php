@@ -51,8 +51,12 @@
     form {
         margin: 0;
     }
+
+    .search {
+        display: none;
+    }
 </style>
-@section('title','新規登録')
+@section('title','Rese-Register-')
 
 @section('content')
 <x-guest-layout>
