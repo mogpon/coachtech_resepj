@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Shop;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
 
@@ -19,9 +20,13 @@ use App\Http\Controllers\ShopController;
 // });
 Route::get('/', [ShopController::class, 'index2']);
 
-Route::get('/detail', function () {
-    return view('detail');
-});
+// Route::post('/detail', function () {
+//     $items = Shop::all();
+//     return view('/detail', ['items' => $items]);
+// });
+Route::get('/detail',  [ShopController::class, 'index3']);
+Route::post('/detail',  [ShopController::class, 'index4']);
+
 Route::get('/mypage', function () {
     return view('mypage');
 });

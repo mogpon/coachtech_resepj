@@ -22,6 +22,15 @@ class ShopController extends Controller
         $items = Shop::all();
         return view('index', ['items' => $items]);
     }
+    public function index3()
+    {
+        return view('/detail');
+    }
+    public function index4()
+    {
+        $items = Shop::all();
+        return view('/detail',['items' => $items]);
+    }
 
     /**
      * Show the form for creating a new resource.

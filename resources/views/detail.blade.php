@@ -127,24 +127,25 @@
     <div class="left">
       <div class="shop_name">
         <a href="http://127.0.0.1:8000/"><i class="far fa-arrow-alt-circle-left back"></i></a>
-        <h1 class="card__ttl">仙人</h1>
+        <h1 class="card__ttl">{{$_POST["shop_name"]}}</h1>
       </div>
-      <img src="/img/sushi.jpg" alt="">
+      <img src="{{ asset('storage/'.$_POST['file_path']) }}" alt="">
       <div class="tag">
-        <p class="card__area">#東京都</p>
-        <p class="card__genre">#寿司</p>
+        <p class="card__area">#{{$_POST["area_name"]}}</p>
+        <p class="card__genre">#{{$_POST["genre_name"]}}</p>
       </div>
       <div class="description">
-        <p>料理長厳選の食材から作る寿司を用いたコースをぜひお楽しみください。食材・味・価格、お客様の満足度を徹底的に追及したお店です。特別な日のお食事、ビジネス接待まで気軽に使用することができます。</p>
+        <p>{{$_POST["description"]}}</p>
       </div>
     </div>
     <div class="right">
       <div class="right2">
         <h1>予約</h1>
         <div class="insert">
-          <input class="a" type="date">
-          <select name="time">
-            <option value="1">17:00</option>
+          <input type="date" id="inputDate" onchange="inputDate()">
+          <select onchange="inputTime(this);">
+            <option value="">選択してください</option>
+            <option value=" 1">17:00</option>
             <option value="2">17:30</option>
             <option value="3">18:00</option>
             <option value="4">18:30</option>
@@ -155,37 +156,49 @@
             <option value="9">21:00</option>
             <option value="10">21:30</option>
           </select>
-          <select name="guest_count">
+          <select onchange="inputNumber(this);">
+            <option value="">選択してください</option>
             <option value="1">1人</option>
             <option value="2">2人</option>
             <option value="3">3人</option>
             <option value="4">4人</option>
             <option value="5">5人</option>
+            <option value="1">6人</option>
+            <option value="2">7人</option>
+            <option value="3">8人</option>
+            <option value="4">9人</option>
+            <option value="5">10人</option>
           </select>
         </div>
         <div class="reserve">
           <table>
             <tr>
               <th>Shop</th>
-              <td>仙人</td>
+              <td>{{$_POST["shop_name"]}}</td>
             </tr>
             <tr>
               <th>Date</th>
-              <td>2021-04-01</td>
+              <td>
+                <div id="date"></div>
+              </td>
             </tr>
             <tr>
               <th>Time</th>
-              <td>17:00</td>
+              <td>
+                <div id="time"></div>
+              </td>
             </tr>
             <tr>
               <th>Number</th>
-              <td>1人</td>
+              <td>
+                <div id="number"></div>
+              </td>
             </tr>
           </table>
         </div>
       </div>
       <div class="reserve_end">
-        <a href="">
+        <a href=" http://127.0.0.1:8000/done">
           <h2>予約する</h2>
         </a>
       </div>

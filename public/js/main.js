@@ -10,22 +10,21 @@ function buttonClick() {
   cont.classList.toggle("out");
 };
 
-// function heartClick(){
-//   const like = document.getElementsByClassName("like");
-//   like.classList.toggle("change");
-// };
+function inputDate() {
+  const inputValue = document.getElementById( "inputDate" ).value;
+  document.getElementById( "date" ).innerHTML = inputValue;
+}
 
-// function heartClick() {
-//   const like = document.querySelectorAll(".like");
-//   like.forEach(function (target) {
-//     target.classList.toggle("change");
-//   })
-// };
-// function heartClick() {
-//   var like = document.querySelectorAll(".like");
-//   like.forEach(function (target) {
-//     target.addEventListener('click', function () {
-//       target.classList.toggle("change")
-//     });
-//   })
-// };
+function inputTime(obj) {
+  var idx = obj.selectedIndex;
+  var text = obj.options[idx].text;;
+  document.getElementById('time').textContent = text;
+}
+function inputNumber(obj) {
+  var idx2 = obj.selectedIndex;
+  var text2 = obj.options[idx2].text;;
+  document.getElementById('number').textContent = text2;
+}
+
+
+
