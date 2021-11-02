@@ -146,7 +146,6 @@ class ShopController extends Controller
             $query->where('shop_name', 'like', '%' . self::escapeLike($searchWord) . '%');
         }
         $items = $query->get();
-        //m_categoriesテーブルからgetLists();関数でcategory_nameとidを取得する
         $area = new Area;
         $areas = $area->getLists();
         $genre = new Genre;

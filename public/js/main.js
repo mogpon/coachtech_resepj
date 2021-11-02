@@ -30,7 +30,6 @@ window.addEventListener('DOMContentLoaded', function(){
 
     // プルダウンメニューのselect要素を取得
     var select_state = document.getElementById("area");
-    var sel = document.getElementById("sel");
     var select_state2 = document.getElementById("genre");
 
     select_state.addEventListener("change",function(){

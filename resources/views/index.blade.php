@@ -132,7 +132,11 @@
     <select id="area" name="areaId" value="{{ $areaId }}">
       <option value="">All area</option>
       @foreach($areas as $id => $area_name)
-      <option id="sel" value="{{ $id }}">{{ $area_name }}</option>
+        @if ($id === $areaId)
+          <option value="{{ $id }}" selected="selected">{{ $area_name }}</option>
+        @else
+          <option value="{{ $id }}">{{ $area_name }}</option>
+        @endif
       @endforeach
     </select>
     <select id="genre" name="genreId" value="{{ $genreId }}">
