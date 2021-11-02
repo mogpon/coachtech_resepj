@@ -7,8 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Area extends Model
 {
+    //areasテーブルから::pluckでarea_nameとidを抽出し、$areasに返す関数
+    public function getLists()
+    {
+        $areas = Area::pluck('area_name', 'id');
+
+        return $areas;
+    }
     public function shops()
     {
-        return $this->hasOne('App\Models\Shop');
+        return $this->hasMany(Shop::class);
     }
 }

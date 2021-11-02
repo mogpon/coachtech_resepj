@@ -9,7 +9,7 @@ class Shop extends Model
 {
        public function area()
     {
-        return $this->belongsTo('App\Models\Area');
+        return $this->belongsTo(Area::class);
     }
        public function genre()
     {

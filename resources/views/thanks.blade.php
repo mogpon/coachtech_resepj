@@ -35,20 +35,37 @@
 @section('title','Rese-Thanks-')
 
 @section('content')
-<x-guest-layout>
-  <x-auth-validation-errors class="mb-4" :errors="$errors" />
-  <form method="POST" action="{{ route('register') }}">
-    @csrf
-    <div class="content">
-      <div class="card">
-        <h1>会員登録ありがとうございます</h1>
-        <div class="flex items-center justify-center mt-4">
-          <x-button class="ml-4">
-            {{ __('ログインへ') }}
-          </x-button>
+<nav class="menu-one" id="menu-one">
+  <ul class="menu_list">
+    <li><a href="">Home</a></li>
+    <li><a href="">Logout</a></li>
+    <li><a href="">Mypage</a></li>
+  </ul>
+</nav>
+<nav class="menu-two" id="menu-two">
+  <ul class="menu_list2">
+    <li><a href="">Home</a></li>
+    <li><a href="">Registration</a></li>
+    <li><a href="">Login</a></li>
+  </ul>
+</nav>
+</div>
+</header>
+<div class="content" id="content">
+  <x-guest-layout>
+    <x-auth-validation-errors class="mb-4" :errors="$errors" />
+    <form method="POST" action="{{ route('register') }}">
+      @csrf
+      <div class="content">
+        <div class="card">
+          <h1>会員登録ありがとうございます</h1>
+          <div class="flex items-center justify-center mt-4">
+            <x-button class="ml-4">
+              {{ __('ログインへ') }}
+            </x-button>
+          </div>
         </div>
       </div>
-    </div>
-  </form>
-</x-guest-layout>
-@endsection('content')
+    </form>
+  </x-guest-layout>
+  @endsection('content')

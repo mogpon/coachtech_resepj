@@ -14,16 +14,9 @@ use App\Http\Controllers\ShopController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('show', 'ShopController@show')->name('show');
+Route::get('/', 'ShopController@search')->name('searcharea');
 
-// Route::get('/', function () {
-//     return view('index');
-// });
-Route::get('/', [ShopController::class, 'index2']);
-
-// Route::post('/detail', function () {
-//     $items = Shop::all();
-//     return view('/detail', ['items' => $items]);
-// });
 Route::get('/detail',  [ShopController::class, 'index3']);
 Route::post('/detail',  [ShopController::class, 'index4']);
 

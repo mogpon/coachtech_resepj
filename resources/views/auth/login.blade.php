@@ -59,34 +59,51 @@
 @section('title','Rese-Login-')
 
 @section('content')
-<x-guest-layout>
-    <div>
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-    </div>
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-        <div class="content">
-            <div class="r-title">
-                <h1>Login</h1>
-            </div>
-            <div class="card">
-                <div class="flex">
-                    <i class="fas fa-envelope size2"></i>
-                    <x-input id="email" placeholder="Email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+<nav class="menu-one" id="menu-one">
+    <ul class="menu_list">
+        <li><a href="">Home</a></li>
+        <li><a href="">Logout</a></li>
+        <li><a href="">Mypage</a></li>
+    </ul>
+</nav>
+<nav class="menu-two" id="menu-two">
+    <ul class="menu_list2">
+        <li><a href="">Home</a></li>
+        <li><a href="">Registration</a></li>
+        <li><a href="">Login</a></li>
+    </ul>
+</nav>
+</div>
+</header>
+<div class="content" id="content">
+    <x-guest-layout>
+        <div>
+            <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        </div>
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
+            <div class="content">
+                <div class="r-title">
+                    <h1>Login</h1>
                 </div>
+                <div class="card">
+                    <div class="flex">
+                        <i class="fas fa-envelope size2"></i>
+                        <x-input id="email" placeholder="Email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                    </div>
 
-                <div class="flex">
-                    <i class="fas fa-unlock-alt size"></i>
-                    <x-input id="password" placeholder="Password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-                </div>
+                    <div class="flex">
+                        <i class="fas fa-unlock-alt size"></i>
+                        <x-input id="password" placeholder="Password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+                    </div>
 
-                <div class="flex items-center justify-end mt-4">
-                    <x-button class="ml-3">
-                        {{ __('ログイン') }}
-                    </x-button>
-                </div>
-    </form>
-    </div>
-    </div>
+                    <div class="flex items-center justify-end mt-4">
+                        <x-button class="ml-3">
+                            {{ __('ログイン') }}
+                        </x-button>
+                    </div>
+        </form>
+</div>
+</div>
 </x-guest-layout>
 @endsection('content')

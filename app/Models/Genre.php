@@ -7,8 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Genre extends Model
 {
+    public function getLists2()
+    {
+        $genres = Genre::pluck('genre_name', 'id');
+
+        return $genres;
+    }
     public function shops()
     {
-        return $this->hasOne('App\Models\Shop');
+        return $this->hasMany(Shop::class);
     }
 }

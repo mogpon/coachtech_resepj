@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shop;
+use App\Models\Area;
+use App\Models\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ShopController extends Controller
 {
@@ -26,10 +29,23 @@ class ShopController extends Controller
     {
         return view('/detail');
     }
-    public function index4()
+    public function index4(Request $request)
     {
-        $items = Shop::all();
-        return view('/detail',['items' => $items]);
+        // $items = Shop::all();
+        // return view('/detail',['items' => $items]);
+        $area = new Area;
+        $areas = $area->getLists();
+        $areaId = $request->input('areaId');
+        $genre = new Genre;
+        $genres = $genre->getLists2();
+        $genreId = $request->input('genreId');
+
+        return view('/detail', [
+            'areas' => $areas,
+            'areaId' => $areaId,
+            'genres' => $genres,
+            'genreId' => $genreId
+        ]);
     }
 
     /**
@@ -92,11 +108,65 @@ class ShopController extends Controller
      * @param  \App\Models\Shop  $shopp
      * @return \Illuminate\Http\Response
      */
-    public function show(Shop $shopp)
+    public function show(Request $request)
     {
-        //
+        //フォームを機能させるために各情報を取得し、viewに返す
+        $area = new Area;
+        $areas = $area->getLists();
+        $areaId = $request->input('genreId');
+        $genre = new Genre;
+        $genres = $genre->getLists2();
+        $genreId = $request->input('genreId');
+        $searchWord = $request->input('searchWord');
+
+        return view('index', [
+            'areas' => $areas,
+            'areaId' => $areaId,
+            'genres' => $genres,
+            'genreId' => $genreId,
+            'searchWord' => $searchWord,
+        ]);
+    }
+    public function search(Request $request)
+    {
+        //入力される値nameの中身を定義する
+        $areaId = $request->input('areaId'); //areaの値
+        $genreId = $request->input('genreId'); //genreの値
+        $searchWord = $request->input('searchWord'); //shop_nameの値
+
+        $query = Shop::query();
+        //エリアが選択された場合、areasテーブルからarea_idが一致する商品を$queryに代入
+        if (isset($areaId)) {
+            $query->where('area_id', $areaId);
+        }
+        if (isset($genreId)) {
+            $query->where('genre_id', $genreId);
+        }
+        if (isset($searchWord)) {
+            $query->where('shop_name', 'like', '%' . self::escapeLike($searchWord) . '%');
+        }
+        $items = $query->get();
+        //m_categoriesテーブルからgetLists();関数でcategory_nameとidを取得する
+        $area = new Area;
+        $areas = $area->getLists();
+        $genre = new Genre;
+        $genres = $genre->getLists2();
+
+        return view('index')->with( [
+            'items' => $items,
+            'areas' => $areas,
+            'areaId' => $areaId,
+            'genres' => $genres,
+            'genreId' => $genreId,
+            'searchWord' => $searchWord,
+        ]);
     }
 
+    //「\\」「%」「_」などの記号を文字としてエスケープさせる
+    public static function escapeLike($str)
+    {
+        return str_replace(['\\', '%', '_'], ['\\\\', '\%', '\_'], $str);
+    }
     /**
      * Show the form for editing the specified resource.
      *

@@ -59,37 +59,54 @@
 @section('title','Rese-Register-')
 
 @section('content')
-<x-guest-layout>
-    <x-auth-validation-errors class="mb-4" :errors="$errors" />
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-        <div class="content">
-            <div class="r-title">
-                <h1>Registration</h1>
-            </div>
-            <div class="card">
-                <div class="flex">
-                    <i class="fas fa-user size"></i>
-                    <x-input id="user_name" class="block mt-1 w-full" type="text" name="user_name" :value="old('user_name')" placeholder="Username" required />
+<nav class="menu-one" id="menu-one">
+    <ul class="menu_list">
+        <li><a href="">Home</a></li>
+        <li><a href="">Logout</a></li>
+        <li><a href="">Mypage</a></li>
+    </ul>
+</nav>
+<nav class="menu-two" id="menu-two">
+    <ul class="menu_list2">
+        <li><a href="">Home</a></li>
+        <li><a href="">Registration</a></li>
+        <li><a href="">Login</a></li>
+    </ul>
+</nav>
+</div>
+</header>
+<div class="content" id="content">
+    <x-guest-layout>
+        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
+            <div class="content">
+                <div class="r-title">
+                    <h1>Registration</h1>
                 </div>
+                <div class="card">
+                    <div class="flex">
+                        <i class="fas fa-user size"></i>
+                        <x-input id="user_name" class="block mt-1 w-full" type="text" name="user_name" :value="old('user_name')" placeholder="Username" required />
+                    </div>
 
-                <div class="flex">
-                    <i class="fas fa-envelope size2"></i>
-                    <x-input id="email" placeholder="Email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-                </div>
+                    <div class="flex">
+                        <i class="fas fa-envelope size2"></i>
+                        <x-input id="email" placeholder="Email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                    </div>
 
-                <div class="flex">
-                    <i class="fas fa-unlock-alt size"></i>
-                    <x-input id="password" placeholder="Password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-                </div>
+                    <div class="flex">
+                        <i class="fas fa-unlock-alt size"></i>
+                        <x-input id="password" placeholder="Password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                    </div>
 
-                <div class="flex items-center justify-end mt-4">
-                    <x-button class="ml-4">
-                        {{ __('登録') }}
-                    </x-button>
-                </div>
-    </form>
-    </div>
-    </div>
+                    <div class="flex items-center justify-end mt-4">
+                        <x-button class="ml-4">
+                            {{ __('登録') }}
+                        </x-button>
+                    </div>
+        </form>
+</div>
+</div>
 </x-guest-layout>
 @endsection('content')

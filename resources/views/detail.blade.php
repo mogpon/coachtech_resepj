@@ -19,6 +19,7 @@
   .back {
     font-size: 1.5em;
     margin-right: 7px;
+    margin-top: 6px;
   }
 
   img {
@@ -27,7 +28,7 @@
   }
 
   .card__ttl {
-    font-size: 18px;
+    font-size: 24px;
     text-align: justify;
     font-weight: bold;
   }
@@ -122,87 +123,104 @@
 @section('title','Rese-Detail-')
 
 @section('content')
-<x-guest-layout>
-  <div class="shop_detail">
-    <div class="left">
-      <div class="shop_name">
-        <a href="http://127.0.0.1:8000/"><i class="far fa-arrow-alt-circle-left back"></i></a>
-        <h1 class="card__ttl">{{$_POST["shop_name"]}}</h1>
-      </div>
-      <img src="{{ asset('storage/'.$_POST['file_path']) }}" alt="">
-      <div class="tag">
-        <p class="card__area">#{{$_POST["area_name"]}}</p>
-        <p class="card__genre">#{{$_POST["genre_name"]}}</p>
-      </div>
-      <div class="description">
-        <p>{{$_POST["description"]}}</p>
-      </div>
-    </div>
-    <div class="right">
-      <div class="right2">
-        <h1>予約</h1>
-        <div class="insert">
-          <input type="date" id="inputDate" onchange="inputDate()">
-          <select onchange="inputTime(this);">
-            <option value="">選択してください</option>
-            <option value=" 1">17:00</option>
-            <option value="2">17:30</option>
-            <option value="3">18:00</option>
-            <option value="4">18:30</option>
-            <option value="5">19:00</option>
-            <option value="6">19:30</option>
-            <option value="7">20:00</option>
-            <option value="8">20:30</option>
-            <option value="9">21:00</option>
-            <option value="10">21:30</option>
-          </select>
-          <select onchange="inputNumber(this);">
-            <option value="">選択してください</option>
-            <option value="1">1人</option>
-            <option value="2">2人</option>
-            <option value="3">3人</option>
-            <option value="4">4人</option>
-            <option value="5">5人</option>
-            <option value="1">6人</option>
-            <option value="2">7人</option>
-            <option value="3">8人</option>
-            <option value="4">9人</option>
-            <option value="5">10人</option>
-          </select>
+<nav class="menu-one" id="menu-one">
+  <ul class="menu_list">
+    <li><a href="">Home</a></li>
+    <li><a href="">Logout</a></li>
+    <li><a href="">Mypage</a></li>
+  </ul>
+</nav>
+<nav class="menu-two" id="menu-two">
+  <ul class="menu_list2">
+    <li><a href="">Home</a></li>
+    <li><a href="">Registration</a></li>
+    <li><a href="">Login</a></li>
+  </ul>
+</nav>
+</div>
+</header>
+<div class="content" id="content">
+  <x-guest-layout>
+    <div class="shop_detail">
+      <div class="left">
+        <div class="shop_name">
+          <a href="http://127.0.0.1:8000/"><i class="far fa-arrow-alt-circle-left back"></i></a>
+          <h1 class="card__ttl">{{$_POST["shop_name"]}}</h1>
         </div>
-        <div class="reserve">
-          <table>
-            <tr>
-              <th>Shop</th>
-              <td>{{$_POST["shop_name"]}}</td>
-            </tr>
-            <tr>
-              <th>Date</th>
-              <td>
-                <div id="date"></div>
-              </td>
-            </tr>
-            <tr>
-              <th>Time</th>
-              <td>
-                <div id="time"></div>
-              </td>
-            </tr>
-            <tr>
-              <th>Number</th>
-              <td>
-                <div id="number"></div>
-              </td>
-            </tr>
-          </table>
+        <img src="{{ asset('storage/'.$_POST['file_path']) }}" alt="">
+        <div class="tag">
+          <p class="card__area">#{{$_POST["area_name"]}}</p>
+          <p class="card__genre">#{{$_POST["genre_name"]}}</p>
+        </div>
+        <div class="description">
+          <p>{{$_POST["description"]}}</p>
         </div>
       </div>
-      <div class="reserve_end">
-        <a href=" http://127.0.0.1:8000/done">
-          <h2>予約する</h2>
-        </a>
+      <div class="right">
+        <div class="right2">
+          <h1>予約</h1>
+          <div class="insert">
+            <input type="date" id="inputDate" onchange="inputDate()">
+            <select onchange="inputTime(this);">
+              <option value="">選択してください</option>
+              <option value=" 1">17:00</option>
+              <option value="2">17:30</option>
+              <option value="3">18:00</option>
+              <option value="4">18:30</option>
+              <option value="5">19:00</option>
+              <option value="6">19:30</option>
+              <option value="7">20:00</option>
+              <option value="8">20:30</option>
+              <option value="9">21:00</option>
+              <option value="10">21:30</option>
+            </select>
+            <select onchange="inputNumber(this);">
+              <option value="">選択してください</option>
+              <option value="1">1人</option>
+              <option value="2">2人</option>
+              <option value="3">3人</option>
+              <option value="4">4人</option>
+              <option value="5">5人</option>
+              <option value="1">6人</option>
+              <option value="2">7人</option>
+              <option value="3">8人</option>
+              <option value="4">9人</option>
+              <option value="5">10人</option>
+            </select>
+          </div>
+          <div class="reserve">
+            <table>
+              <tr>
+                <th>Shop</th>
+                <td>{{$_POST["shop_name"]}}</td>
+              </tr>
+              <tr>
+                <th>Date</th>
+                <td>
+                  <div id="date"></div>
+                </td>
+              </tr>
+              <tr>
+                <th>Time</th>
+                <td>
+                  <div id="time"></div>
+                </td>
+              </tr>
+              <tr>
+                <th>Number</th>
+                <td>
+                  <div id="number"></div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="reserve_end">
+          <a href=" http://127.0.0.1:8000/done">
+            <h2>予約する</h2>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-</x-guest-layout>
-@endsection('content')
+  </x-guest-layout>
+  @endsection('content')

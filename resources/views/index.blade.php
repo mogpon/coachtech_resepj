@@ -88,47 +88,106 @@
       width: 24%;
     }
   }
+
+  .search_box {
+    display: inline-block;
+    position: relative;
+  }
+
+  .search_box::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    background: url(/img/icon.png) no-repeat center center / auto 100%;
+    display: inline-block;
+    position: absolute;
+    top: 13px;
+    left: 8px;
+  }
+
+  .search_box input {
+    padding-left: 27px;
+  }
 </style>
 
 @section('title','Rese-HOME-')
 
 @section('content')
-<x-guest-layout>
-  <div class="flex__item wrap">
-    @foreach($items as $item)
-    <div class="practice__card">
-      <div class="card__img">
-        <img src="{{ asset('storage/'.$item->file_path) }}" alt="">
-      </div>
-      <div class="card__content">
-        <h2 class="card__ttl">{{$item->shop_name}}</h2>
-        <div class="tag">
-          <p class="card__area">#{{$item->area->area_name}}</p>
-          <p class="card__genre">#{{$item->genre->genre_name}}</p>
-        </div>
-        <div class="card__flex">
-          <form action="/detail" method="POST">
-            {{ csrf_field() }}
-            <input type="hidden" name="shop_name" value="{{$item->shop_name}}">
-            <input type="hidden" name="file_path" value="{{$item->file_path}}">
-            <input type="hidden" name="area_name" value="{{$item->area->area_name}}">
-            <input type="hidden" name="genre_name" value="{{$item->genre->genre_name}}">
-            <input type="hidden" name="description" value="{{$item->description}}">
-            <input type="submit" value="詳しく見る" class="card__cat">
-          </form>
-          <button id="like" class="like"><i class="fas fa-heart"></i></button>
-        </div>
-      </div>
+<nav class="menu-one" id="menu-one">
+  <ul class="menu_list">
+    <li><a href="http://127.0.0.1:8000/">Home</a></li>
+    <li><a href="">Logout</a></li>
+    <li><a href="">Mypage</a></li>
+  </ul>
+</nav>
+<nav class="menu-two" id="menu-two">
+  <ul class="menu_list2">
+    <li><a href="http://127.0.0.1:8000/">Home</a></li>
+    <li><a href="http://127.0.0.1:8000/register">Registration</a></li>
+    <li><a href="http://127.0.0.1:8000/login">Login</a></li>
+  </ul>
+</nav>
+<form class="serch" method="GET" action="/">
+  <div class="search">
+    <select id="area" name="areaId" value="{{ $areaId }}">
+      <option value="">All area</option>
+      @foreach($areas as $id => $area_name)
+      <option id="sel" value="{{ $id }}">{{ $area_name }}</option>
+      @endforeach
+    </select>
+    <select id="genre" name="genreId" value="{{ $genreId }}">
+      <option value="">All genre</option>
+      @foreach($genres as $id => $genre_name)
+      <option value="{{ $id }}">{{ $genre_name }}</option>
+      @endforeach
+    </select>
+    <div class="search_box">
+      <input type="text" placeholder="Search..." name="searchWord" value="{{ $searchWord }}">
     </div>
-    @endforeach
+    <button type="submit" id="submit" style="display:none;">検索</button>
   </div>
-  <script>
-    var like = document.querySelectorAll(".like");
-    like.forEach(function(target) {
-      target.addEventListener('click', function() {
-        target.classList.toggle("change")
-      });
-    });
-  </script>
-</x-guest-layout>
-@endsection('content')
+</form>
+</div>
+</header>
+<div class=" content" id="content">
+      <x-guest-layout>
+        @if (!empty($items))
+        <div class="flex__item wrap">
+          @foreach($items as $item)
+          <div class="practice__card">
+            <div class="card__img">
+              <img src="{{ asset('storage/'.$item->file_path) }}" alt="">
+            </div>
+            <div class="card__content">
+              <h2 class="card__ttl">{{$item->shop_name}}</h2>
+              <div class="tag">
+                <p class="card__area">#{{$item->area->area_name}}</p>
+                <p class="card__genre">#{{$item->genre->genre_name}}</p>
+              </div>
+              <div class="card__flex">
+                <form action="/detail" method="POST">
+                  {{ csrf_field() }}
+                  <input type="hidden" name="shop_name" value="{{$item->shop_name}}">
+                  <input type="hidden" name="file_path" value="{{$item->file_path}}">
+                  <input type="hidden" name="area_name" value="{{$item->area->area_name}}">
+                  <input type="hidden" name="genre_name" value="{{$item->genre->genre_name}}">
+                  <input type="hidden" name="description" value="{{$item->description}}">
+                  <input type="submit" value="詳しく見る" class="card__cat">
+                </form>
+                <button id="like" class="like"><i class="fas fa-heart"></i></button>
+              </div>
+            </div>
+          </div>
+          @endforeach
+        </div>
+        @endif
+        <script>
+          var like = document.querySelectorAll(".like");
+          like.forEach(function(target) {
+            target.addEventListener('click', function() {
+              target.classList.toggle("change")
+            });
+          });
+        </script>
+      </x-guest-layout>
+      @endsection('content')

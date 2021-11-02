@@ -61,25 +61,6 @@
       margin-right: 8px;
     }
 
-    .search_box {
-      display: inline-block;
-      position: relative;
-    }
-
-    .search_box::before {
-      content: "";
-      width: 16px;
-      height: 16px;
-      background: url(/img/icon.png) no-repeat center center / auto 100%;
-      display: inline-block;
-      position: absolute;
-      top: 13px;
-      left: 8px;
-    }
-
-    .search_box input {
-      padding-left: 3px 0 3px 2em;
-    }
 
     .menu-one {
       position: absolute;
@@ -128,59 +109,31 @@
     .out {
       display: none;
     }
+
+    .serch {
+      margin: 0;
+    }
   </style>
 </head>
 
 <body>
   <header>
     <div class="flex">
-      <div class="menu_flex" id="menu_flex"  onclick="buttonClick()">
-        <button class="menu1" id="menu1">
+      <div class="menu_flex" id="menu_flex">
+        <button class="menu1" id="menu1" onclick="buttonClick()">
           <i class="fas fa-stream menu-btn"></i>
         </button>
-        <button class="menu2" id="menu2">
+        <button class="menu2" id="menu2" onclick="buttonClick()">
           <i class="fas fa-window-close close-btn"></i>
         </button>
-        <h1 class="head_title">Rese</h1>
+        <h1 class="head_title">
+          <a href="http://127.0.0.1:8000/">
+            Rese
+          </a>
+        </h1>
       </div>
-      <nav class="menu-one" id="menu-one">
-        <ul class="menu_list">
-          <li><a href="">Home</a></li>
-          <li><a href="">Logout</a></li>
-          <li><a href="">Mypage</a></li>
-        </ul>
-      </nav>
-      <nav class="menu-two" id="menu-two">
-        <ul class="menu_list2">
-          <li><a href="">Home</a></li>
-          <li><a href="">Registration</a></li>
-          <li><a href="">Login</a></li>
-        </ul>
-      </nav>
-      <div class="search">
-        <select name="area">
-          <option hidden>All area</option>
-          <option value="tokyo">東京</option>
-          <option value="osaka">大阪</option>
-          <option value="fukuoka">福岡</option>
-        </select>
-        <select name="genre">
-          <option hidden>All genre</option>
-          <option value="tokyo">寿司</option>
-          <option value="osaka">焼肉</option>
-          <option value="fukuoka">居酒屋</option>
-          <option value="fukuoka">イタリアン</option>
-          <option value="fukuoka">ラーメン</option>
-        </select>
-        <div class="search_box">
-          <input type="text" placeholder="   Search...">
-        </div>
-      </div>
+      @yield('content')
     </div>
-  </header>
-  <div class="content" id="content">
-    @yield('content')
-  </div>
 </body>
 
 </html>

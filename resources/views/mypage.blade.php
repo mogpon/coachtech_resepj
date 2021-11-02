@@ -153,81 +153,98 @@
 @section('title','Rese-Mypage-')
 
 @section('content')
-<x-guest-layout>
-  <div class="name">
-    <h1>testさん</h1>
-  </div>
-  <div class="my-page_flex">
-    <div class="mypage_left">
-      <h2>予約状況</h2>
-      <div class="my-reserve">
-        <div class="my-reserve_title">
-          <div class="my-reserve_number">
-            <i class="far fa-clock clock"></i>
-            <h3>予約1</h3>
-          </div>
-          <div class="cancel">
-            <i class="far fa-times-circle cancel-btn"></i>
-          </div>
-        </div>
-        <table>
-          <tr>
-            <th>Shop</th>
-            <td>仙人</td>
-          </tr>
-          <tr>
-            <th>Date</th>
-            <td>2021-04-01</td>
-          </tr>
-          <tr>
-            <th>Time</th>
-            <td>17:00</td>
-          </tr>
-          <tr>
-            <th>Number</th>
-            <td>1人</td>
-          </tr>
-        </table>
-      </div>
+<nav class="menu-one" id="menu-one">
+  <ul class="menu_list">
+    <li><a href="">Home</a></li>
+    <li><a href="">Logout</a></li>
+    <li><a href="">Mypage</a></li>
+  </ul>
+</nav>
+<nav class="menu-two" id="menu-two">
+  <ul class="menu_list2">
+    <li><a href="">Home</a></li>
+    <li><a href="">Registration</a></li>
+    <li><a href="">Login</a></li>
+  </ul>
+</nav>
+</div>
+</header>
+<div class="content" id="content">
+  <x-guest-layout>
+    <div class="name">
+      <h1>testさん</h1>
     </div>
-    <div class="mypage_right">
-      <h2>お気に入り店舗</h2>
-      <div class="flex__item wrap">
-        <div class="practice__card">
-          <div class="card__img">
-            <img src="/img/sushi.jpg" alt="">
-          </div>
-          <div class="card__content">
-            <h2 class="card__ttl">仙人</h2>
-            <div class="tag">
-              <p class="card__area">#東京都</p>
-              <p class="card__genre">#寿司</p>
+    <div class="my-page_flex">
+      <div class="mypage_left">
+        <h2>予約状況</h2>
+        <div class="my-reserve">
+          <div class="my-reserve_title">
+            <div class="my-reserve_number">
+              <i class="far fa-clock clock"></i>
+              <h3>予約1</h3>
             </div>
-            <div class="card__flex">
-              <a href="http://127.0.0.1:8000/detail"><button class="card__cat">詳しく見る</button></a>
-              <button><i class="fas fa-heart heart"></i></button>
+            <div class="cancel">
+              <i class="far fa-times-circle cancel-btn"></i>
             </div>
           </div>
-        </div>
-        <div class="practice__card">
-          <div class="card__img">
-            <img src="/img/yakiniku.jpg" alt="">
-          </div>
-          <div class="card__content">
-            <h2 class="card__ttl">牛助</h2>
-            <div class="tag">
-              <p class="card__area">#大阪府</p>
-              <p class="card__genre">#焼肉</p>
-              </p>
-            </div>
-            <div class="card__flex">
-              <a href="http://127.0.0.1:8000/detail"><button class="card__cat">詳しく見る</button></a>
-              <button><i class="fas fa-heart heart"></i></button>
-            </div>
-          </div>
+          <table>
+            <tr>
+              <th>Shop</th>
+              <td>仙人</td>
+            </tr>
+            <tr>
+              <th>Date</th>
+              <td>2021-04-01</td>
+            </tr>
+            <tr>
+              <th>Time</th>
+              <td>17:00</td>
+            </tr>
+            <tr>
+              <th>Number</th>
+              <td>1人</td>
+            </tr>
+          </table>
         </div>
       </div>
+      <div class="mypage_right">
+        <h2>お気に入り店舗</h2>
+        <div class="flex__item wrap">
+          <div class="practice__card">
+            <div class="card__img">
+              <img src="/img/sushi.jpg" alt="">
+            </div>
+            <div class="card__content">
+              <h2 class="card__ttl">仙人</h2>
+              <div class="tag">
+                <p class="card__area">#東京都</p>
+                <p class="card__genre">#寿司</p>
+              </div>
+              <div class="card__flex">
+                <a href="http://127.0.0.1:8000/detail"><button class="card__cat">詳しく見る</button></a>
+                <button><i class="fas fa-heart heart"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="practice__card">
+            <div class="card__img">
+              <img src="/img/yakiniku.jpg" alt="">
+            </div>
+            <div class="card__content">
+              <h2 class="card__ttl">牛助</h2>
+              <div class="tag">
+                <p class="card__area">#大阪府</p>
+                <p class="card__genre">#焼肉</p>
+                </p>
+              </div>
+              <div class="card__flex">
+                <a href="http://127.0.0.1:8000/detail"><button class="card__cat">詳しく見る</button></a>
+                <button><i class="fas fa-heart heart"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</x-guest-layout>
-@endsection('content')
+  </x-guest-layout>
+  @endsection('content')
