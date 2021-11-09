@@ -123,20 +123,29 @@
 @section('title','Rese-Detail-')
 
 @section('content')
-<nav class="menu-one" id="menu-one">
-  <ul class="menu_list">
-    <li><a href="">Home</a></li>
-    <li><a href="">Logout</a></li>
-    <li><a href="">Mypage</a></li>
-  </ul>
-</nav>
-<nav class="menu-two" id="menu-two">
-  <ul class="menu_list2">
-    <li><a href="">Home</a></li>
-    <li><a href="">Registration</a></li>
-    <li><a href="">Login</a></li>
-  </ul>
-</nav>
+@auth
+  <nav class="menu-one" id="menu-one">
+    <ul class="menu_list">
+      <li><a href="http://127.0.0.1:8000/">Home</a></li>
+      <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <a :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
+          {{ __('Logout') }}
+        </a>
+      </form>
+      <li><a href="http://127.0.0.1:8000/mypage">Mypage</a></li>
+    </ul>
+  </nav>
+@endauth
+@guest
+  <nav class="menu-two" id="menu-two">
+    <ul class="menu_list2">
+      <li><a href="http://127.0.0.1:8000/">Home</a></li>
+      <li><a href="http://127.0.0.1:8000/register">Registration</a></li>
+      <li><a href="http://127.0.0.1:8000/login">Login</a></li>
+    </ul>
+  </nav>
+@endguest
 </div>
 </header>
 <div class="content" id="content">
@@ -216,7 +225,9 @@
           </div>
         </div>
         <div class="reserve_end">
+          @auth
           <a href=" http://127.0.0.1:8000/done">
+          @endauth
             <h2>予約する</h2>
           </a>
         </div>

@@ -20,9 +20,8 @@ Route::get('/', 'ShopController@search')->name('searcharea');
 Route::get('/detail',  [ShopController::class, 'index3']);
 Route::post('/detail',  [ShopController::class, 'index4']);
 
-Route::get('/mypage', function () {
-    return view('mypage');
-});
+Route::get('/mypage', [ShopController::class, 'index2']);
+
 Route::get('/done', function () {
     return view('done');
 });
@@ -33,11 +32,11 @@ Route::get('/dashboard', function () {
 
 Route::get('/thanks', function () {
     return view('thanks');
-})->middleware(['auth'])->name('thanks');
+})->name('thanks');
 
 Route::post('/thanks', function () {
     return view('thanks');
-})->middleware(['auth'])->name('thanks');
+})->name('thanks');
 
 require __DIR__.'/auth.php';
 

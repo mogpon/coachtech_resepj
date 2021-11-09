@@ -113,27 +113,36 @@
 @section('title','Rese-HOME-')
 
 @section('content')
-<nav class="menu-one" id="menu-one">
-  <ul class="menu_list">
-    <li><a href="http://127.0.0.1:8000/">Home</a></li>
-    <li><a href="">Logout</a></li>
-    <li><a href="">Mypage</a></li>
-  </ul>
-</nav>
-<nav class="menu-two" id="menu-two">
-  <ul class="menu_list2">
-    <li><a href="http://127.0.0.1:8000/">Home</a></li>
-    <li><a href="http://127.0.0.1:8000/register">Registration</a></li>
-    <li><a href="http://127.0.0.1:8000/login">Login</a></li>
-  </ul>
-</nav>
+@auth
+  <nav class="menu-one" id="menu-one">
+    <ul class="menu_list">
+      <li><a href="http://127.0.0.1:8000/">Home</a></li>
+      <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <a :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
+          {{ __('Logout') }}
+        </a>
+      </form>
+      <li><a href="http://127.0.0.1:8000/mypage">Mypage</a></li>
+    </ul>
+  </nav>
+@endauth
+@guest
+  <nav class="menu-two" id="menu-two">
+    <ul class="menu_list2">
+      <li><a href="http://127.0.0.1:8000/">Home</a></li>
+      <li><a href="http://127.0.0.1:8000/register">Registration</a></li>
+      <li><a href="http://127.0.0.1:8000/login">Login</a></li>
+    </ul>
+  </nav>
+@endguest
 <form class="serch" method="GET" action="/">
   <div class="search">
     <select id="area" name="areaId" value="{{ $areaId }}">
       <option value="">All area</option>
       @foreach($areas as $id => $area_name)
-        @if ($id === $areaId)
-          <option value="{{ $id }}" selected="selected">{{ $area_name }}</option>
+        @if ($id == $areaId)
+          <option value="{{ $id }}" selected>{{ $area_name }}</option>
         @else
           <option value="{{ $id }}">{{ $area_name }}</option>
         @endif
@@ -142,7 +151,11 @@
     <select id="genre" name="genreId" value="{{ $genreId }}">
       <option value="">All genre</option>
       @foreach($genres as $id => $genre_name)
-      <option value="{{ $id }}">{{ $genre_name }}</option>
+      @if ($id == $genreId)
+        <option value="{{ $id }}" selected>{{ $genre_name }}</option>
+      @else
+        <option value="{{ $id }}">{{ $genre_name }}</option>
+      @endif
       @endforeach
     </select>
     <div class="search_box">
@@ -185,6 +198,7 @@
           @endforeach
         </div>
         @endif
+        @auth
         <script>
           var like = document.querySelectorAll(".like");
           like.forEach(function(target) {
@@ -193,5 +207,6 @@
             });
           });
         </script>
+        @endauth
       </x-guest-layout>
       @endsection('content')

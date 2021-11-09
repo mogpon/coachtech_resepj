@@ -59,27 +59,34 @@
 @section('title','Rese-Login-')
 
 @section('content')
-<nav class="menu-one" id="menu-one">
+@auth
+  <nav class="menu-one" id="menu-one">
     <ul class="menu_list">
-        <li><a href="">Home</a></li>
-        <li><a href="">Logout</a></li>
-        <li><a href="">Mypage</a></li>
+      <li><a href="http://127.0.0.1:8000/">Home</a></li>
+      <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <a :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
+          {{ __('Logout') }}
+        </a>
+      </form>
+      <li><a href="http://127.0.0.1:8000/mypage">Mypage</a></li>
     </ul>
-</nav>
-<nav class="menu-two" id="menu-two">
+  </nav>
+@endauth
+@guest
+  <nav class="menu-two" id="menu-two">
     <ul class="menu_list2">
-        <li><a href="">Home</a></li>
-        <li><a href="">Registration</a></li>
-        <li><a href="">Login</a></li>
+      <li><a href="http://127.0.0.1:8000/">Home</a></li>
+      <li><a href="http://127.0.0.1:8000/register">Registration</a></li>
+      <li><a href="http://127.0.0.1:8000/login">Login</a></li>
     </ul>
-</nav>
+  </nav>
+@endguest
 </div>
 </header>
 <div class="content" id="content">
     <x-guest-layout>
-        <div>
-            <x-auth-validation-errors class="mb-4" :errors="$errors" />
-        </div>
+        <x-auth-session-status class="mb-4" :status="session('status')" />
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="content">
@@ -87,6 +94,7 @@
                     <h1>Login</h1>
                 </div>
                 <div class="card">
+                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     <div class="flex">
                         <i class="fas fa-envelope size2"></i>
                         <x-input id="email" placeholder="Email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
@@ -102,8 +110,8 @@
                             {{ __('ログイン') }}
                         </x-button>
                     </div>
+                </div>
         </form>
+    </x-guest-layout>
 </div>
-</div>
-</x-guest-layout>
 @endsection('content')

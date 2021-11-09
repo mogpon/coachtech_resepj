@@ -74,7 +74,6 @@
     }
 
     .menu-two {
-      display: none;
       position: absolute;
       height: 50vh;
       width: 85%;
@@ -99,6 +98,23 @@
     }
 
     .menu-one a:hover {
+      cursor: pointer;
+      opacity: 0.8;
+    }
+    .menu-list2 li {
+      list-style-type: none;
+      margin-top: 100px;
+    }
+
+    .menu-two a {
+      text-decoration: none;
+      color: rgb(0, 98, 179);
+      font-weight: normal;
+      font-size: 36px;
+    }
+
+    .menu-two a:hover {
+      cursor: pointer;
       opacity: 0.8;
     }
 
@@ -120,12 +136,22 @@
   <header>
     <div class="flex">
       <div class="menu_flex" id="menu_flex">
+        @auth
         <button class="menu1" id="menu1" onclick="buttonClick()">
           <i class="fas fa-stream menu-btn"></i>
         </button>
         <button class="menu2" id="menu2" onclick="buttonClick()">
           <i class="fas fa-window-close close-btn"></i>
         </button>
+        @endauth
+        @guest
+        <button class="menu1" id="menu1" onclick="buttonClick2()">
+          <i class="fas fa-stream menu-btn"></i>
+        </button>
+        <button class="menu2" id="menu2" onclick="buttonClick2()">
+          <i class="fas fa-window-close close-btn"></i>
+        </button>
+        @endguest
         <h1 class="head_title">
           <a href="http://127.0.0.1:8000/">
             Rese

@@ -42,13 +42,14 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'user_name' => $request->user_name,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        //eventヘルパを使って登録したユーザー情報を元にメールを自動送信するイベント
+        // event(new Registered($user));
 
-        Auth::login($user);
+        // Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return view(RouteServiceProvider::HOME);
     }
 }

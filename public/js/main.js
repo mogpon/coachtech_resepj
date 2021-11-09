@@ -10,6 +10,18 @@ function buttonClick() {
   cont.classList.toggle("out");
 };
 
+function buttonClick2() {
+  console.log('a');
+  const target1 = document.getElementById("menu1");
+  target1.classList.toggle("open");
+  const target2 = document.getElementById("menu2");
+  target2.classList.toggle("open2");
+  const nav2 = document.getElementById("menu-two");
+  nav2.classList.toggle("in");
+  const cont = document.getElementById("content");
+  cont.classList.toggle("out");
+};
+
 function inputDate() {
   const inputValue = document.getElementById( "inputDate" ).value;
   document.getElementById( "date" ).innerHTML = inputValue;

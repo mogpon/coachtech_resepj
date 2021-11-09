@@ -153,26 +153,30 @@
 @section('title','Rese-Mypage-')
 
 @section('content')
-<nav class="menu-one" id="menu-one">
-  <ul class="menu_list">
-    <li><a href="">Home</a></li>
-    <li><a href="">Logout</a></li>
-    <li><a href="">Mypage</a></li>
-  </ul>
-</nav>
-<nav class="menu-two" id="menu-two">
-  <ul class="menu_list2">
-    <li><a href="">Home</a></li>
-    <li><a href="">Registration</a></li>
-    <li><a href="">Login</a></li>
-  </ul>
-</nav>
+@auth
+  <nav class="menu-one" id="menu-one">
+    <ul class="menu_list">
+      <li><a href="http://127.0.0.1:8000/">Home</a></li>
+      <li><a href="http://127.0.0.1:8000/dashboard">Logout</a></li>
+      <li><a href="http://127.0.0.1:8000/mypage">Mypage</a></li>
+    </ul>
+  </nav>
+@endauth
+@guest
+  <nav class="menu-two" id="menu-two">
+    <ul class="menu_list2">
+      <li><a href="http://127.0.0.1:8000/">Home</a></li>
+      <li><a href="http://127.0.0.1:8000/register">Registration</a></li>
+      <li><a href="http://127.0.0.1:8000/login">Login</a></li>
+    </ul>
+  </nav>
+@endguest
 </div>
 </header>
 <div class="content" id="content">
   <x-guest-layout>
     <div class="name">
-      <h1>testさん</h1>
+      <h1>{{$user->user_name}}さん</h1>
     </div>
     <div class="my-page_flex">
       <div class="mypage_left">

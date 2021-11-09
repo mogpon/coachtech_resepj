@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth; 
 use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Genre;
@@ -22,8 +23,8 @@ class ShopController extends Controller
     }
     public function index2()
     {
-        $items = Shop::all();
-        return view('index', ['items' => $items]);
+        $user = Auth::user();
+        return view('/mypage', ['user' => $user]);
     }
     public function index3()
     {
@@ -31,8 +32,6 @@ class ShopController extends Controller
     }
     public function index4(Request $request)
     {
-        // $items = Shop::all();
-        // return view('/detail',['items' => $items]);
         $area = new Area;
         $areas = $area->getLists();
         $areaId = $request->input('areaId');
