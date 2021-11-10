@@ -191,7 +191,24 @@
                   <input type="hidden" name="description" value="{{$item->description}}">
                   <input type="submit" value="詳しく見る" class="card__cat">
                 </form>
-                <button id="like" class="like"><i class="fas fa-heart"></i></button>
+                {{-- <button id="like" class="like"><i class="fas fa-heart"></i></button> --}}
+                <div class="row justify-content-center">
+                  @if($shop->users()->where('user_id', Auth::id())->exists())
+                        <div class="col-md-3">
+                          @csrf
+                            <form action="{{ route('favorites', $shop) }}" method="POST">
+                                <button id="like" class="like"><i class="fas fa-heart"></i></button>
+                            </form>
+                        </div>
+                      @else
+                        <div class="col-md-3">
+                          @csrf
+                            <form action="{{ route('unfavorites', $shop) }}" method="POST" style="color: red;">>
+                                <button id="like" class="like"><i class="fas fa-heart"></i></button>
+                            </form>
+                        </div>
+                  @endif
+                    </div>
               </div>
             </div>
           </div>

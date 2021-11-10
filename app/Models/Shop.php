@@ -17,4 +17,8 @@ class Shop extends Model
     {
         return $this->belongsTo('App\Models\Genre');
     }
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User')->withTimestamps();
+    }
 }

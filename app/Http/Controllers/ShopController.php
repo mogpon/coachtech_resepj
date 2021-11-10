@@ -100,6 +100,7 @@ class ShopController extends Controller
         // 前の画面に戻る
         return back();
     }
+    
 
     /**
      * Display the specified resource.
@@ -125,6 +126,12 @@ class ShopController extends Controller
             'genreId' => $genreId,
             'searchWord' => $searchWord,
         ]);
+    }
+    public function show2(Shop $shop)
+    {
+
+        $like = Like::where('shop_id', $shop->id)->where('user_id', auth()->user()->id)->first();
+        return view('index', compact('shop', 'like'));
     }
     public function search(Request $request)
     {
