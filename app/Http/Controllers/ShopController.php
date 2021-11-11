@@ -127,12 +127,7 @@ class ShopController extends Controller
             'searchWord' => $searchWord,
         ]);
     }
-    public function show2(Shop $shop)
-    {
-
-        $like = Like::where('shop_id', $shop->id)->where('user_id', auth()->user()->id)->first();
-        return view('index', compact('shop', 'like'));
-    }
+    
     public function search(Request $request)
     {
         //入力される値nameの中身を定義する

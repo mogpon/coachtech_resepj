@@ -37,7 +37,7 @@ class FavoriteController extends Controller
     public function store(Shop $shop)
     {
         $shop->users()->attach(Auth::id());
-        return redirect()->route('index');
+        return redirect()->route('/');
     }
 
     /**
@@ -83,6 +83,6 @@ class FavoriteController extends Controller
     public function destroy(Shop $shop)
     {
         $shop->users()->detach(Auth::id());
-        return redirect()->route('index');
+        return redirect()->route('/');
     }
 }
