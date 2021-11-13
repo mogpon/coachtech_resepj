@@ -205,9 +205,9 @@
                         </div>
                       @else
                         <div class="col-md-3">
-                          @csrf
-                            <form action="{{ route('unfavorites', $shop) }}" method="POST" style="color: red;">
-                                <button id="like" class="like"><i class="fas fa-heart"></i></button>
+                          <form action="{{ route('unfavorites', $shop) }}" method="POST">
+                            @csrf
+                                <button id="like" class="like"><i class="fas fa-heart" style="color: red;"></i></button>
                             </form>
                         </div>
                   @endif
@@ -219,7 +219,7 @@
           @endforeach
         </div>
         @endif
-        @auth
+        {{-- @auth
         <script>
           var like = document.querySelectorAll(".like");
           like.forEach(function(target) {
@@ -228,6 +228,6 @@
             });
           });
         </script>
-        @endauth
+        @endauth --}}
       </x-guest-layout>
       @endsection('content')

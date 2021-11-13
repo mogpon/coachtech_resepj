@@ -15,8 +15,8 @@ class ShopUserTable extends Migration
     {
         Schema::create('shop_user', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('shop_id');
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('shop_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
