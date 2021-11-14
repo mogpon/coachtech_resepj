@@ -16,9 +16,9 @@ class User extends Authenticatable
     // {
     //     return $this->hasMany('App\Models\Like');
     // }
-    public function favorites()
+    public function favorite()
     {
-        return $this->belongsToMany('App\Models\Shop')->withTimestamps();
+        return $this->hasMany(Favorite::class);
     }
     /**
      * The attributes that are mass assignable.

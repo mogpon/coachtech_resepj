@@ -128,7 +128,7 @@ class ShopController extends Controller
         ]);
     }
     
-    public function search(Request $request)
+    public function search(Request $request, Shop $shop)
     {
         //入力される値nameの中身を定義する
         $areaId = $request->input('areaId'); //areaの値
@@ -146,14 +146,15 @@ class ShopController extends Controller
         if (isset($searchWord)) {
             $query->where('shop_name', 'like', '%' . self::escapeLike($searchWord) . '%');
         }
-        $items = $query->get();
+        $shops = $query->get();
         $area = new Area;
         $areas = $area->getLists();
         $genre = new Genre;
         $genres = $genre->getLists2();
+        // var_dump($items[0]->isFavorite());
 
         return view('index')->with( [
-            'items' => $items,
+            'shops' => $shops,
             'areas' => $areas,
             'areaId' => $areaId,
             'genres' => $genres,

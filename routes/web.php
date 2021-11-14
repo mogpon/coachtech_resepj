@@ -19,11 +19,12 @@ Route::get('show', 'ShopController@show')->name('show');
 Route::get('/', 'ShopController@search')->name('searcharea');
 
 
-Route::post('/{shop}/favorites', 'FavoriteController@store')->name('favorites');
-Route::post('/{shop}/unfavorites', 'FavoriteController@destroy')->name('unfavorites');
+Route::post('/favorites/{shop}', 'FavoriteController@store')->name('favorites');
+Route::post('/unfavorites/{shop}', 'FavoriteController@destroy')->name('unfavorites');
 
-Route::get('/detail',  [ShopController::class, 'index3']);
+// Route::get('/detail',  [ShopController::class, 'index3']);
 Route::post('/detail',  [ShopController::class, 'index4']);
+// Route::post('/detail/{shop}',  [ShopController::class, 'index4'])->name('reserve');
 
 Route::get('/mypage', [ShopController::class, 'index2']);
 
