@@ -14,7 +14,7 @@ class CreateShopsTable extends Migration
     public function up()
     {
         Schema::create('shops', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('shop_name', 32);
             $table->bigInteger('area_id')->unsigned();
             $table->foreign('area_id')->references('id')->on('areas')->onDelete('cascade');

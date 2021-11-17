@@ -3,6 +3,7 @@
 use App\Models\Shop;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\FavoriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +18,13 @@ use App\Http\Controllers\ShopController;
 Route::get('show', 'ShopController@show')->name('show');
 Route::get('/', 'ShopController@search')->name('searcharea');
 
-Route::get('/detail',  [ShopController::class, 'index3']);
+
+Route::post('/favorites/{shop}', 'FavoriteController@store')->name('favorites');
+Route::post('/unfavorites/{shop}', 'FavoriteController@destroy')->name('unfavorites');
+
+// Route::get('/detail',  [ShopController::class, 'index3']);
 Route::post('/detail',  [ShopController::class, 'index4']);
+// Route::post('/detail/{shop}',  [ShopController::class, 'index4'])->name('reserve');
 
 Route::get('/mypage', [ShopController::class, 'index2']);
 

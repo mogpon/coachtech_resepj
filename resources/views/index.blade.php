@@ -49,7 +49,6 @@
   .tag {
     display: flex;
     justify-content: flex-start;
-    margin-bottom: 10px;
     font-size: 14px;
   }
 
@@ -107,6 +106,11 @@
 
   .search_box input {
     padding-left: 27px;
+  }
+  .favorite{
+    padding-top:22px;
+    margin:0;
+    vertical-align: middle;
   }
 </style>
 
@@ -168,45 +172,50 @@
 </header>
 <div class=" content" id="content">
       <x-guest-layout>
-        @if (!empty($items))
+        @if (!empty($shops))
         <div class="flex__item wrap">
-          @foreach($items as $item)
+          @foreach($shops as $shop)
           <div class="practice__card">
             <div class="card__img">
-              <img src="{{ asset('storage/'.$item->file_path) }}" alt="">
+              <img src="{{ asset('storage/'.$shop->file_path) }}" alt="">
             </div>
             <div class="card__content">
-              <h2 class="card__ttl">{{$item->shop_name}}</h2>
+              <h2 class="card__ttl">{{$shop->shop_name}}</h2>
               <div class="tag">
-                <p class="card__area">#{{$item->area->area_name}}</p>
-                <p class="card__genre">#{{$item->genre->genre_name}}</p>
+                <p class="card__area">#{{$shop->area->area_name}}</p>
+                <p class="card__genre">#{{$shop->genre->genre_name}}</p>
               </div>
               <div class="card__flex">
                 <form action="/detail" method="POST">
                   {{ csrf_field() }}
-                  <input type="hidden" name="shop_name" value="{{$item->shop_name}}">
-                  <input type="hidden" name="file_path" value="{{$item->file_path}}">
-                  <input type="hidden" name="area_name" value="{{$item->area->area_name}}">
-                  <input type="hidden" name="genre_name" value="{{$item->genre->genre_name}}">
-                  <input type="hidden" name="description" value="{{$item->description}}">
+                  <input type="hidden" name="shop_name" value="{{$shop->shop_name}}">
+                  <input type="hidden" name="file_path" value="{{$shop->file_path}}">
+                  <input type="hidden" name="area_name" value="{{$shop->area->area_name}}">
+                  <input type="hidden" name="genre_name" value="{{$shop->genre->genre_name}}">
+                  <input type="hidden" name="description" value="{{$shop->description}}">
                   <input type="submit" value="詳しく見る" class="card__cat">
                 </form>
+                @guest
                 <button id="like" class="like"><i class="fas fa-heart"></i></button>
+                @endguest
+                @auth
+                  @if($shop->isFavorite() == true)
+                          <form action="{{ route('unfavorites', $shop->id) }}" method="POST" class="favorite">
+                            @csrf
+                                <button id="like" class="like"><i class="fas fa-heart"  style="color: red;"></i></button>
+                          </form>
+                      @else
+                          <form action="{{ route('favorites', $shop->id) }}" method="POST" class="favorite">
+                          @csrf
+                              <button id="like" class="like"><i class="fas fa-heart"></i></button>
+                          </form>
+                  @endif
+                @endauth
               </div>
             </div>
           </div>
           @endforeach
         </div>
         @endif
-        @auth
-        <script>
-          var like = document.querySelectorAll(".like");
-          like.forEach(function(target) {
-            target.addEventListener('click', function() {
-              target.classList.toggle("change")
-            });
-          });
-        </script>
-        @endauth
       </x-guest-layout>
       @endsection('content')

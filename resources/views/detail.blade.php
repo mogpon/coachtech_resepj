@@ -166,6 +166,8 @@
         </div>
       </div>
       <div class="right">
+        {{-- <form class="form" action="{{ route('reserve') }}" method="POST"> --}}
+        @csrf
         <div class="right2">
           <h1>予約</h1>
           <div class="insert">
@@ -231,6 +233,7 @@
             <h2>予約する</h2>
           </a>
         </div>
+        {{-- </form> --}}
       </div>
     </div>
   </x-guest-layout>
