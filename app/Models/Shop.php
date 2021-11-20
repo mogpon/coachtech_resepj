@@ -26,4 +26,8 @@ class Shop extends Model
     {
         return $this->hasMany(Favorite::class)->where('user_id', Auth::id())->exists();
     }
+    public function reserve()
+    {
+        return $this->hasMany(Reserve::class);
+    }
 }

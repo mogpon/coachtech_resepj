@@ -1,4 +1,4 @@
-<form action="{{route('image.store')}}" method="POST" enctype="multipart/form-data">
+<form action="{{route('image_post')}}" method="POST" enctype="multipart/form-data">
   @csrf
 
   店名<input type="text" class="shop_name" name="shop_name"><br>

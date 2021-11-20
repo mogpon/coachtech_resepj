@@ -186,7 +186,7 @@
                 <p class="card__genre">#{{$shop->genre->genre_name}}</p>
               </div>
               <div class="card__flex">
-                <form action="/detail" method="POST">
+                <form action="{{ route('detail', $shop->id) }}" method="POST">
                   {{ csrf_field() }}
                   <input type="hidden" name="shop_name" value="{{$shop->shop_name}}">
                   <input type="hidden" name="file_path" value="{{$shop->file_path}}">

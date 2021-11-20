@@ -166,26 +166,26 @@
         </div>
       </div>
       <div class="right">
-        {{-- <form class="form" action="{{ route('reserve') }}" method="POST"> --}}
+        <form class="form" action="{{ route('reserve', $shop) }}" method="POST">
         @csrf
         <div class="right2">
           <h1>予約</h1>
           <div class="insert">
-            <input type="date" id="inputDate" onchange="inputDate()">
-            <select onchange="inputTime(this);">
+            <input type="date" name="date" id="inputDate" onchange="inputDate()">
+            <select name="time" onchange="inputTime(this);">
               <option value="">選択してください</option>
-              <option value=" 1">17:00</option>
-              <option value="2">17:30</option>
-              <option value="3">18:00</option>
-              <option value="4">18:30</option>
-              <option value="5">19:00</option>
-              <option value="6">19:30</option>
-              <option value="7">20:00</option>
-              <option value="8">20:30</option>
-              <option value="9">21:00</option>
-              <option value="10">21:30</option>
+              <option value="17:00:00">17:00</option>
+              <option value="17:30:00">17:30</option>
+              <option value="18:00:00">18:00</option>
+              <option value="18:30:00">18:30</option>
+              <option value="19:00:00">19:00</option>
+              <option value="19:30:00">19:30</option>
+              <option value="20:00:00">20:00</option>
+              <option value="20:30:00">20:30</option>
+              <option value="21:00:00">21:00</option>
+              <option value="21:30:00">21:30</option>
             </select>
-            <select onchange="inputNumber(this);">
+            <select name="guest_count" onchange="inputNumber(this);">
               <option value="">選択してください</option>
               <option value="1">1人</option>
               <option value="2">2人</option>
@@ -198,7 +198,6 @@
               <option value="4">9人</option>
               <option value="5">10人</option>
             </select>
-          </div>
           <div class="reserve">
             <table>
               <tr>
@@ -227,13 +226,16 @@
           </div>
         </div>
         <div class="reserve_end">
-          @auth
-          <a href=" http://127.0.0.1:8000/done">
+          @guest
+           <h2>予約する</h2>
+          @endguest
+        @auth
+          <button type="submit" name="action" class="form-btn" value="submit">
+            予約する
+          </button>
           @endauth
-            <h2>予約する</h2>
-          </a>
         </div>
-        {{-- </form> --}}
+        </form>
       </div>
     </div>
   </x-guest-layout>
