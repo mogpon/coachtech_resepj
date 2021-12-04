@@ -60,7 +60,7 @@
   .right {
     width: 48%;
     font-family: 'IM Fell DW Pica SC', serif;
-    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
+    /* box-shadow: 0px 1px 0px rgb(0, 0, 0, 0.2); */
   }
 
   .right2 {
@@ -154,15 +154,15 @@
       <div class="left">
         <div class="shop_name">
           <a href="http://127.0.0.1:8000/"><i class="far fa-arrow-alt-circle-left back"></i></a>
-          <h1 class="card__ttl">{{$_POST["shop_name"]}}</h1>
+          <h1 class="card__ttl">{{$shop->shop_name}}</h1>
         </div>
-        <img src="{{ asset('storage/'.$_POST['file_path']) }}" alt="">
+        <img src="{{ asset('storage/'.$shop->file_path) }}" alt="">
         <div class="tag">
-          <p class="card__area">#{{$_POST["area_name"]}}</p>
-          <p class="card__genre">#{{$_POST["genre_name"]}}</p>
+          <p class="card__area">#{{$shop->area->area_name}}</p>
+          <p class="card__genre">#{{$shop->genre->genre_name}}</p>
         </div>
         <div class="description">
-          <p>{{$_POST["description"]}}</p>
+          <p>{{$shop->description}}</p>
         </div>
       </div>
       <div class="right">
@@ -198,11 +198,12 @@
               <option value="4">9人</option>
               <option value="5">10人</option>
             </select>
+          </div>
           <div class="reserve">
             <table>
               <tr>
                 <th>Shop</th>
-                <td>{{$_POST["shop_name"]}}</td>
+                <td>{{$shop->shop_name}}</td>
               </tr>
               <tr>
                 <th>Date</th>
@@ -225,16 +226,19 @@
             </table>
           </div>
         </div>
+        @guest
         <div class="reserve_end">
-          @guest
            <h2>予約する</h2>
-          @endguest
+        </div>
+        @endguest
         @auth
-          <button type="submit" name="action" class="form-btn" value="submit">
+        <div class="reserve_end">
+          <input type="hidden" name="shopId" value="{{$shop->id}}">
+          <button type="submit" name="action" value="submit">
             予約する
           </button>
-          @endauth
         </div>
+        @endauth
         </form>
       </div>
     </div>

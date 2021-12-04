@@ -21,7 +21,7 @@ Route::get('/', 'ShopController@search')->name('searcharea');
 // 検索バー
 Route::get('show', 'ShopController@show')->name('show');
 // 詳細画面へ（「詳しく見る」クリック時）
-Route::post('/detail',  [ShopController::class, 'detail'])->name('detail');
+Route::get('/detail/{shopId}',  [ShopController::class, 'detail'])->name('detail');
 // お気に入り追加・削除 index.blade.php
 Route::post('/favorites/{shop}', 'FavoriteController@store')->name('favorites');
 Route::post('/unfavorites/{shop}', 'FavoriteController@destroy')->name('unfavorites');
@@ -29,6 +29,7 @@ Route::post('/unfavorites/{shop}', 'FavoriteController@destroy')->name('unfavori
 Route::post('/done',[ShopController::class, 'reserve'])->name('reserve');
 // マイページ
 Route::get('/mypage', [ShopController::class, 'mypage']);
+Route::post('/mypage', [ShopController::class, 'reserve_del'])->name('reserve_del');
 
 // 新規登録完了画面
 Route::get('/thanks', function () {

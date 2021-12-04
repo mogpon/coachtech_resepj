@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Shop;
 use App\Models\Area;
+use App\Models\Favorite;
 use App\Models\Genre;
 use App\Models\Reserve;
 use Illuminate\Http\Request;
@@ -119,10 +120,16 @@ class ShopController extends Controller
     }
 
     // 詳細画面へ（「詳しく見る」クリック時）
-    public function detail(Shop $shop)
+    public function detail($shopId)
     {
-        $shop = $shop->id;
-        return view('/detail', ['shop' => $shop]);
+        $query = new Shop();
+        $shop = $query->find((int)$shopId);
+        $query2 = new Shop();
+        $favorite = $query->find((int)$shopId);
+        return view('/detail', [
+            'shop' => $shop,
+            'favorite' => $favorite,
+        ]);
     }
 
     // 予約完了画面へ（「予約」クリック時）
@@ -131,7 +138,7 @@ class ShopController extends Controller
         $reserve = new Reserve();
         $reserve->reserved_at = $request->date .' '. $request->time;
         $reserve->guest_count = $request->guest_count;
-        $reserve->shop_id = $shop->id;
+        $reserve->shop_id = $request->shopId;
         $reserve->user_id = Auth::user()->id;
         $reserve->save();
         return view('/done');
@@ -141,7 +148,17 @@ class ShopController extends Controller
     public function mypage()
     {
         $user = Auth::user();
-        return view('/mypage', ['user' => $user]);
+        $query = Reserve::query();
+        $query->where('user_id', Auth::id());
+        $query2 = Favorite::query();
+        $query2->where('user_id', Auth::id());
+        $reserves = $query->get();
+        $favorites = $query2->get();
+        return view('/mypage', [
+            'user' => $user,
+            'reserves' => $reserves,
+            'favorites' => $favorites,
+        ]);
     }
 
     /**
@@ -208,5 +225,10 @@ class ShopController extends Controller
     public function destroy(Shop $shopp)
     {
         //
+    }
+    public function reserve_del(Request $request)
+    {
+        Reserve::find($request->id)->delete();
+        return redirect('/mypage');
     }
 }

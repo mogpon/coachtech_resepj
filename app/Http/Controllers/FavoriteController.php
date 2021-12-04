@@ -44,6 +44,7 @@ class FavoriteController extends Controller
         return back();
     }
 
+
     /**
      * Display the specified resource.
      *

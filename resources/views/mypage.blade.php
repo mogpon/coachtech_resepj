@@ -86,7 +86,7 @@
   }
 
   .flex__item {
-    width: 85%;
+    width: 100%;
     display: flex;
   }
 
@@ -144,10 +144,24 @@
     display: flex;
     justify-content: space-between;
   }
-
-  .heart {
-    color: gainsboro;
+  .favorite{
+    margin:0;
+    vertical-align: middle;
     font-size: 1.5em;
+  }
+  .wrap {
+    margin: 0 auto;
+  }
+  @media screen and (min-width:768px) {
+    .practice__card {
+      width: 25%;
+    }
+  }
+
+  @media screen and (min-width:1000px) {
+    .practice__card {
+      width: 50%;
+    }
   }
 </style>
 @section('title','Rese-Mypage-')
@@ -181,72 +195,79 @@
     <div class="my-page_flex">
       <div class="mypage_left">
         <h2>予約状況</h2>
+        @foreach($reserves as $reserve)
         <div class="my-reserve">
           <div class="my-reserve_title">
             <div class="my-reserve_number">
               <i class="far fa-clock clock"></i>
-              <h3>予約1</h3>
+              <h3>予約{{$reserve->id}}</h3>
             </div>
-            <div class="cancel">
-              <i class="far fa-times-circle cancel-btn"></i>
-            </div>
+            <form action="{{ route('reserve_del')}}" method="post">
+            @csrf
+              <div class="cancel">
+                <button>
+                  <i class="far fa-times-circle cancel-btn"></i>
+                </button>
+                <input type="hidden" value="{{$reserve->id}}" name="id">
+              </div>
+            </form>
           </div>
           <table>
             <tr>
               <th>Shop</th>
-              <td>仙人</td>
+              <td>{{$reserve->shop->shop_name}}</td>
             </tr>
             <tr>
               <th>Date</th>
-              <td>2021-04-01</td>
+              <td>{{$reserve->reserved_at->format('Y-m-d')}}</td>
             </tr>
             <tr>
               <th>Time</th>
-              <td>17:00</td>
+              <td>{{$reserve->reserved_at->format('H:i')}}</td>
             </tr>
             <tr>
               <th>Number</th>
-              <td>1人</td>
+              <td>{{$reserve->guest_count}}</td>
             </tr>
           </table>
         </div>
+        @endforeach
       </div>
       <div class="mypage_right">
         <h2>お気に入り店舗</h2>
         <div class="flex__item wrap">
+          @foreach($favorites as $favorite)
           <div class="practice__card">
             <div class="card__img">
-              <img src="/img/sushi.jpg" alt="">
+              <img src="{{ asset('storage/'.$favorite->shop->file_path) }}" alt="">
             </div>
             <div class="card__content">
-              <h2 class="card__ttl">仙人</h2>
+              <h2 class="card__ttl">{{$favorite->shop->shop_name}}</h2>
               <div class="tag">
-                <p class="card__area">#東京都</p>
-                <p class="card__genre">#寿司</p>
+                <p class="card__area">#{{$favorite->shop->area->area_name}}</p>
+                <p class="card__genre">#{{$favorite->shop->genre->genre_name}}</p>
               </div>
               <div class="card__flex">
-                <a href="http://127.0.0.1:8000/detail"><button class="card__cat">詳しく見る</button></a>
-                <button><i class="fas fa-heart heart"></i></button>
+                <a href="{{ route('detail',['shopId'=>$favorite->shop->id])}}" >
+                  <button class="card__cat">
+                  詳しく見る
+                  </button>
+                </a>
+                @if($favorite->shop->isFavorite() == true)
+                        <form action="{{ route('unfavorites', $favorite->shop->id) }}" method="POST" class="favorite">
+                          @csrf
+                              <button id="like" class="like"><i class="fas fa-heart"  style="color: red;"></i></button>
+                        </form>
+                    @else
+                        <form action="{{ route('favorites', $favorite->shop->id) }}" method="POST" class="favorite">
+                        @csrf
+                            <button id="like" class="like"><i class="fas fa-heart"></i></button>
+                        </form>
+                @endif
               </div>
             </div>
           </div>
-          <div class="practice__card">
-            <div class="card__img">
-              <img src="/img/yakiniku.jpg" alt="">
-            </div>
-            <div class="card__content">
-              <h2 class="card__ttl">牛助</h2>
-              <div class="tag">
-                <p class="card__area">#大阪府</p>
-                <p class="card__genre">#焼肉</p>
-                </p>
-              </div>
-              <div class="card__flex">
-                <a href="http://127.0.0.1:8000/detail"><button class="card__cat">詳しく見る</button></a>
-                <button><i class="fas fa-heart heart"></i></button>
-              </div>
-            </div>
-          </div>
+          @endforeach
         </div>
       </div>
     </div>

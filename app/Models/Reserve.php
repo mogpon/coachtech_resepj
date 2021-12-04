@@ -13,6 +13,7 @@ class Reserve extends Model
      *
      * @var array
      */
+    protected $dates = ['reserved_at', 'created_at', 'updated_at',];
     protected $fillable = [
         'user_id', 'shop_id' , 'reserved_at', 'guest_count'
     ];

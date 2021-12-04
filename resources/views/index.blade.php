@@ -25,7 +25,7 @@
   }
 
   .card__content {
-    margin: 20px 20px 5px 20px;
+    margin: 20px;
   }
 
   .card__cat {
@@ -186,15 +186,11 @@
                 <p class="card__genre">#{{$shop->genre->genre_name}}</p>
               </div>
               <div class="card__flex">
-                <form action="{{ route('detail', $shop->id) }}" method="POST">
-                  {{ csrf_field() }}
-                  <input type="hidden" name="shop_name" value="{{$shop->shop_name}}">
-                  <input type="hidden" name="file_path" value="{{$shop->file_path}}">
-                  <input type="hidden" name="area_name" value="{{$shop->area->area_name}}">
-                  <input type="hidden" name="genre_name" value="{{$shop->genre->genre_name}}">
-                  <input type="hidden" name="description" value="{{$shop->description}}">
-                  <input type="submit" value="詳しく見る" class="card__cat">
-                </form>
+                <a href="{{ route('detail',['shopId'=>$shop->id])}}" >
+                  <button class="card__cat">
+                  詳しく見る
+                  </button>
+                </a>
                 @guest
                 <button id="like" class="like"><i class="fas fa-heart"></i></button>
                 @endguest
