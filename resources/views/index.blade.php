@@ -180,7 +180,7 @@
               <img src="{{ asset('storage/'.$shop->file_path) }}" alt="">
             </div>
             <div class="card__content">
-              <h2 class="card__ttl">{{$shop->shop_name}}</h2>
+              <h2 class="card__ttl">{{\Illuminate\Support\Str::limit($shop->shop_name,20,'...')}}</h2>
               <div class="tag">
                 <p class="card__area">#{{$shop->area->area_name}}</p>
                 <p class="card__genre">#{{$shop->genre->genre_name}}</p>
