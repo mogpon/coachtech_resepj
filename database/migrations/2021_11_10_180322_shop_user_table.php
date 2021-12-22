@@ -13,7 +13,7 @@ class ShopUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('favorite', function (Blueprint $table) {
+        Schema::create('shop_user', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('shop_id')->unsigned();

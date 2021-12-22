@@ -9,7 +9,9 @@ use Auth;
 
 class Shop extends Model
 {
-    
+    protected $fillable = [
+        'shop_name', 'area_id', 'genre_id', 'description', 'file_path',
+    ];
        public function area()
     {
         return $this->belongsTo(Area::class);

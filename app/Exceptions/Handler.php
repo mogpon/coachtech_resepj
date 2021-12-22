@@ -27,14 +27,14 @@ class Handler extends ExceptionHandler
         'password',
         'password_confirmation',
     ];
-    public function render($request, Throwable $exception)
-    {
+    // public function render($request, Throwable $exception)
+    // {
         
-        // エラー画面を返す（ログイン認証で指定の遷移先にうまく遷移されない）
-        return response()->view("common/error");
+    //     // エラー画面を返す（ログイン認証で指定の遷移先にうまく遷移されない）
+    //     return response()->view("common/error");
 
-        return parent::render($request, $exception); // Laravelの標準Auth機能を用いる場合はこちら
-    }
+    //     return parent::render($request, $exception); // Laravelの標準Auth機能を用いる場合はこちら
+    // }
     /**
      * Register the exception handling callbacks for the application.
      *
