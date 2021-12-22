@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Reserve extends Model
+class Favorite extends Model
 {
     use HasFactory;
     /**
@@ -13,23 +13,23 @@ class Reserve extends Model
      *
      * @var array
      */
-    protected $dates = ['reserved_at', 'created_at', 'updated_at',];
     protected $fillable = [
-        'user_id', 'shop_id' , 'reserved_at', 'guest_count'
+        'user_id', 'shop_id'
     ];
 
     protected $guarded = [
         'id'
     ];
-    protected $table = 'reserves';
+    protected $table = 'favorite';
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
+    
     public function shop()
     {
         return $this->belongsTo(Shop::class);
     }
+    
 }
