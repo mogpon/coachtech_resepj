@@ -43,11 +43,7 @@ class FavoriteController extends Controller
         $favorite->save();
         return back();
     }
-    // public function store(Shop $shop)
-    // {
-    //     $shop->users()->attach(Auth::id());
-    //     return redirect()->route('/');
-    // }
+
 
     /**
      * Display the specified resource.

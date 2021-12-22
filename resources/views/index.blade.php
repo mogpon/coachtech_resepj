@@ -25,7 +25,7 @@
   }
 
   .card__content {
-    margin: 20px 20px 5px 20px;
+    margin: 20px;
   }
 
   .card__cat {
@@ -180,21 +180,17 @@
               <img src="{{ asset('storage/'.$shop->file_path) }}" alt="">
             </div>
             <div class="card__content">
-              <h2 class="card__ttl">{{$shop->shop_name}}</h2>
+              <h2 class="card__ttl">{{\Illuminate\Support\Str::limit($shop->shop_name,20,'...')}}</h2>
               <div class="tag">
                 <p class="card__area">#{{$shop->area->area_name}}</p>
                 <p class="card__genre">#{{$shop->genre->genre_name}}</p>
               </div>
               <div class="card__flex">
-                <form action="/detail" method="POST">
-                  {{ csrf_field() }}
-                  <input type="hidden" name="shop_name" value="{{$shop->shop_name}}">
-                  <input type="hidden" name="file_path" value="{{$shop->file_path}}">
-                  <input type="hidden" name="area_name" value="{{$shop->area->area_name}}">
-                  <input type="hidden" name="genre_name" value="{{$shop->genre->genre_name}}">
-                  <input type="hidden" name="description" value="{{$shop->description}}">
-                  <input type="submit" value="詳しく見る" class="card__cat">
-                </form>
+                <a href="{{ route('detail',['shopId'=>$shop->id])}}" >
+                  <button class="card__cat">
+                  詳しく見る
+                  </button>
+                </a>
                 @guest
                 <button id="like" class="like"><i class="fas fa-heart"></i></button>
                 @endguest

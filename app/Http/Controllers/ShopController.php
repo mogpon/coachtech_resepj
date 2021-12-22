@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 use App\Models\Shop;
 use App\Models\Area;
+use App\Models\Favorite;
 use App\Models\Genre;
+use App\Models\Reserve;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,53 +18,13 @@ class ShopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    // 店舗情報追加画面
     public function index()
     {
         $images = Shop::all();
         return view('image.index', compact('images'));
     }
-    public function index2()
-    {
-        $user = Auth::user();
-        return view('/mypage', ['user' => $user]);
-    }
-    public function index3()
-    {
-        return view('/detail');
-    }
-    public function index4(Request $request)
-    {
-        $area = new Area;
-        $areas = $area->getLists();
-        $areaId = $request->input('areaId');
-        $genre = new Genre;
-        $genres = $genre->getLists2();
-        $genreId = $request->input('genreId');
-
-        return view('/detail', [
-            'areas' => $areas,
-            'areaId' => $areaId,
-            'genres' => $genres,
-            'genreId' => $genreId
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         if ($request->file('file')) {
@@ -97,37 +59,10 @@ class ShopController extends Controller
                 $image_info->save();
             }
         }
-        // 前の画面に戻る
         return back();
     }
-    
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Shop  $shopp
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request)
-    {
-        //フォームを機能させるために各情報を取得し、viewに返す
-        $area = new Area;
-        $areas = $area->getLists();
-        $areaId = $request->input('genreId');
-        $genre = new Genre;
-        $genres = $genre->getLists2();
-        $genreId = $request->input('genreId');
-        $searchWord = $request->input('searchWord');
-
-        return view('index', [
-            'areas' => $areas,
-            'areaId' => $areaId,
-            'genres' => $genres,
-            'genreId' => $genreId,
-            'searchWord' => $searchWord,
-        ]);
-    }
-    
+    // ホーム（店舗一覧）表示
     public function search(Request $request, Shop $shop)
     {
         //入力される値nameの中身を定義する
@@ -153,7 +88,7 @@ class ShopController extends Controller
         $genres = $genre->getLists2();
         // var_dump($items[0]->isFavorite());
 
-        return view('index')->with( [
+        return view('index')->with([
             'shops' => $shops,
             'areas' => $areas,
             'areaId' => $areaId,
@@ -162,6 +97,96 @@ class ShopController extends Controller
             'searchWord' => $searchWord,
         ]);
     }
+
+    // 検索バー
+    public function show(Request $request)
+    {
+        //フォームを機能させるために各情報を取得し、viewに返す
+        $area = new Area;
+        $areas = $area->getLists();
+        $areaId = $request->input('genreId');
+        $genre = new Genre;
+        $genres = $genre->getLists2();
+        $genreId = $request->input('genreId');
+        $searchWord = $request->input('searchWord');
+
+        return view('index', [
+            'areas' => $areas,
+            'areaId' => $areaId,
+            'genres' => $genres,
+            'genreId' => $genreId,
+            'searchWord' => $searchWord,
+        ]);
+    }
+
+    // 詳細画面へ（「詳しく見る」クリック時）
+    public function detail($shopId)
+    {
+        $query = new Shop();
+        $shop = $query->find((int)$shopId);
+        $query2 = new Shop();
+        $favorite = $query->find((int)$shopId);
+        return view('/detail', [
+            'shop' => $shop,
+            'favorite' => $favorite,
+        ]);
+    }
+
+    // 予約完了画面へ（「予約」クリック時）
+    public function reserve(Shop $shop, Request $request)
+    {
+        $reserve = new Reserve();
+        $reserve->reserved_at = $request->date .' '. $request->time;
+        $reserve->guest_count = $request->guest_count;
+        $reserve->shop_id = $request->shopId;
+        $reserve->user_id = Auth::user()->id;
+        $reserve->save();
+        return view('/done');
+    }
+
+    // マイページ
+    public function mypage()
+    {
+        $user = Auth::user();
+        $query = Reserve::query();
+        $query->where('user_id', Auth::id());
+        $query2 = Favorite::query();
+        $query2->where('user_id', Auth::id());
+        $reserves = $query->get();
+        $favorites = $query2->get();
+        return view('/mypage', [
+            'user' => $user,
+            'reserves' => $reserves,
+            'favorites' => $favorites,
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    
+    
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Shop  $shopp
+     * @return \Illuminate\Http\Response
+     */
+    
 
     //「\\」「%」「_」などの記号を文字としてエスケープさせる
     public static function escapeLike($str)
@@ -200,5 +225,10 @@ class ShopController extends Controller
     public function destroy(Shop $shopp)
     {
         //
+    }
+    public function reserve_del(Request $request)
+    {
+        Reserve::find($request->id)->delete();
+        return redirect('/mypage');
     }
 }

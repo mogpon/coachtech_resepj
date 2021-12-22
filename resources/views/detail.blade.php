@@ -60,7 +60,7 @@
   .right {
     width: 48%;
     font-family: 'IM Fell DW Pica SC', serif;
-    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
+    /* box-shadow: 0px 1px 0px rgb(0, 0, 0, 0.2); */
   }
 
   .right2 {
@@ -154,38 +154,38 @@
       <div class="left">
         <div class="shop_name">
           <a href="http://127.0.0.1:8000/"><i class="far fa-arrow-alt-circle-left back"></i></a>
-          <h1 class="card__ttl">{{$_POST["shop_name"]}}</h1>
+          <h1 class="card__ttl">{{$shop->shop_name}}</h1>
         </div>
-        <img src="{{ asset('storage/'.$_POST['file_path']) }}" alt="">
+        <img src="{{ asset('storage/'.$shop->file_path) }}" alt="">
         <div class="tag">
-          <p class="card__area">#{{$_POST["area_name"]}}</p>
-          <p class="card__genre">#{{$_POST["genre_name"]}}</p>
+          <p class="card__area">#{{$shop->area->area_name}}</p>
+          <p class="card__genre">#{{$shop->genre->genre_name}}</p>
         </div>
         <div class="description">
-          <p>{{$_POST["description"]}}</p>
+          <p>{{$shop->description}}</p>
         </div>
       </div>
       <div class="right">
-        {{-- <form class="form" action="{{ route('reserve') }}" method="POST"> --}}
+        <form class="form" action="{{ route('reserve', $shop) }}" method="POST">
         @csrf
         <div class="right2">
           <h1>予約</h1>
           <div class="insert">
-            <input type="date" id="inputDate" onchange="inputDate()">
-            <select onchange="inputTime(this);">
+            <input type="date" name="date" id="inputDate" onchange="inputDate()">
+            <select name="time" onchange="inputTime(this);">
               <option value="">選択してください</option>
-              <option value=" 1">17:00</option>
-              <option value="2">17:30</option>
-              <option value="3">18:00</option>
-              <option value="4">18:30</option>
-              <option value="5">19:00</option>
-              <option value="6">19:30</option>
-              <option value="7">20:00</option>
-              <option value="8">20:30</option>
-              <option value="9">21:00</option>
-              <option value="10">21:30</option>
+              <option value="17:00:00">17:00</option>
+              <option value="17:30:00">17:30</option>
+              <option value="18:00:00">18:00</option>
+              <option value="18:30:00">18:30</option>
+              <option value="19:00:00">19:00</option>
+              <option value="19:30:00">19:30</option>
+              <option value="20:00:00">20:00</option>
+              <option value="20:30:00">20:30</option>
+              <option value="21:00:00">21:00</option>
+              <option value="21:30:00">21:30</option>
             </select>
-            <select onchange="inputNumber(this);">
+            <select name="guest_count" onchange="inputNumber(this);">
               <option value="">選択してください</option>
               <option value="1">1人</option>
               <option value="2">2人</option>
@@ -203,7 +203,7 @@
             <table>
               <tr>
                 <th>Shop</th>
-                <td>{{$_POST["shop_name"]}}</td>
+                <td>{{$shop->shop_name}}</td>
               </tr>
               <tr>
                 <th>Date</th>
@@ -226,14 +226,20 @@
             </table>
           </div>
         </div>
+        @guest
         <div class="reserve_end">
-          @auth
-          <a href=" http://127.0.0.1:8000/done">
-          @endauth
-            <h2>予約する</h2>
-          </a>
+           <h2>予約する</h2>
         </div>
-        {{-- </form> --}}
+        @endguest
+        @auth
+        <div class="reserve_end">
+          <input type="hidden" name="shopId" value="{{$shop->id}}">
+          <button type="submit" name="action" value="submit">
+            予約する
+          </button>
+        </div>
+        @endauth
+        </form>
       </div>
     </div>
   </x-guest-layout>
