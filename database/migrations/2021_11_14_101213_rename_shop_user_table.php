@@ -23,6 +23,6 @@ class RenameShopUserTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::rename('shop_user', 'favorite');
     }
 }
